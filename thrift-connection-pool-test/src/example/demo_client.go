@@ -1,20 +1,22 @@
 package example
 
 import (
+	_ "fmt"
+	"gen-go/hello"
 	"git.apache.org/thrift.git/lib/go/thrift"
 	"net"
 )
 
 const (
-	CTR_HOST      = "pickad.glorfindel.daesvc.douban.com"
-	CTR_HOST_PORT = "7303"
+	CTR_HOST      = "127.0.0.1"
+	CTR_HOST_PORT = "19090"
 )
 
 //创建一个thrift的client
 func CreateConnection() (interface{}, error) {
-	var client *PickAdClient
+	var client *hello.HelloClient
 	var transport thrift.TTransport
-	transportFactory := thrift.NewTFramedTransportFactory(thrift.NewTTransportFactory())
+	transportFactory := thrift.NewTTransportFactory()
 	protocolFactory := thrift.NewTBinaryProtocolFactoryDefault()
 	raw_transport, e1 := thrift.NewTSocket(net.JoinHostPort(CTR_HOST, CTR_HOST_PORT))
 	if e1 != nil {
@@ -25,21 +27,17 @@ func CreateConnection() (interface{}, error) {
 	if e2 != nil {
 		return client, e2
 	}
-	message := GetCTRHelloMessage()
-	_, e3 := raw_transport.Write(message)
-	if e3 != nil {
-		return client, e3
-	}
-	client = NewPickAdClientFactory(transport, protocolFactory)
+
+	client = hello.NewHelloClientFactory(transport, protocolFactory)
 	return client, nil
 }
 
 //连接是否正常
 func IsConnectionOpen(client interface{}) bool {
-	return client.(*PickAdClient).Transport.IsOpen()
+	return client.(*hello.HelloClient).Transport.IsOpen()
 }
 
 //关闭
 func CloseConnection(client interface{}) error {
-	return client.(*PickAdClient).Transport.Close()
+	return client.(*hello.HelloClient).Transport.Close()
 }

@@ -1,4 +1,4 @@
-package pool
+package thrift_pool
 
 import (
 	"container/list"
@@ -89,6 +89,7 @@ func (p *ConnectionPool) GetConnection(clientChan chan interface{}, errChan chan
 			p.mu.Unlock()
 		}
 	}
+
 	client, e1 := p.createConnection()
 	if e1 != nil {
 		errChan <- e1
