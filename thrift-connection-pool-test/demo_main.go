@@ -2,8 +2,8 @@ package main
 
 import (
 	"example"
+	"example/gen-go/hello"
 	"fmt"
-	"gen-go/hello"
 	"github.com/yilee/thrift-connection-pool"
 	"time"
 )
