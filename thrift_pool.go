@@ -33,6 +33,7 @@ type ConnectionPool struct {
 func NewConnectionPool(
 	pool_size int,
 	timeout time.Duration,
+	clientTimes int64,
 	createConnection func() (interface{}, error),
 	isConnectionOpen func(client interface{}) bool,
 	closeConnection func(client interface{}) error) *ConnectionPool {
