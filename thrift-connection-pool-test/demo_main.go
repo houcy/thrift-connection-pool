@@ -9,13 +9,14 @@ import (
 )
 
 const (
-	CTR_TIME_WAIT           = time.Second * 1  //thrift服务超时
-	CTR_THRIFT_POOL_SIZE    = 3                //池容量
-	CTR_THRIFT_POOL_TIMEOUT = time.Minute * 15 //15分钟，连接池里的client过期时间
+	CTR_TIME_WAIT                 = time.Second * 1  //thrift服务超时
+	CTR_THRIFT_POOL_SIZE          = 3                //池容量
+	CTR_THRIFT_POOL_TIMEOUT       = time.Minute * 15 //15分钟，连接池里的client过期时间
+	CTR_CLIENT_TIMES        int64 = 500              //每个client使用次数
 )
 
 func main() {
-	var connectionPool *thrift_pool.ConnectionPool = thrift_pool.NewConnectionPool(CTR_THRIFT_POOL_SIZE, CTR_THRIFT_POOL_TIMEOUT, example.CreateConnection, example.IsConnectionOpen, example.CloseConnection)
+	var connectionPool *thrift_pool.ConnectionPool = thrift_pool.NewConnectionPool(CTR_THRIFT_POOL_SIZE, CTR_THRIFT_POOL_TIMEOUT, CTR_CLIENT_TIMES, example.CreateConnection, example.IsConnectionOpen, example.CloseConnection)
 
 	var client *hello.HelloClient
 	clientChan := make(chan interface{})
