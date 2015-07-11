@@ -2,7 +2,7 @@
 golang thrift connection pool
 
 ## Usage
-	var connectionPool *thrift_pool.ConnectionPool = thrift_pool.NewConnectionPool(CTR_THRIFT_POOL_SIZE, CTR_THRIFT_POOL_TIMEOUT, example.CreateConnection, example.IsConnectionOpen, example.CloseConnection)
+	var connectionPool *thrift_pool.ConnectionPool = thrift_pool.NewConnectionPool(CTR_THRIFT_POOL_SIZE, CTR_THRIFT_POOL_TIMEOUT, CTR_CLIENT_TIMES, example.CreateConnection, example.IsConnectionOpen, example.CloseConnection)
 	var client *hello.HelloClient
 	clientChan := make(chan interface{})
 	errClientChan := make(chan error)
